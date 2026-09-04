@@ -1,0 +1,24 @@
+2026-09-04 11:30:56,803 - _10_evaluation.py - INFO - Evaluation latency: 13.501s
+2026-09-04 11:30:57,145 - _10_evaluation.py - INFO - Evaluation latency: 0.341s
+2026-09-04 11:34:01,623 - _10_evaluation.py - INFO - Evaluation latency: 5.316s
+2026-09-04 11:34:01,943 - _10_evaluation.py - INFO - Evaluation latency: 0.320s
+2026-09-04 11:34:01,943 - _10_evaluation.py - INFO - Test 1: True
+2026-09-04 11:34:01,944 - _10_evaluation.py - INFO - Test 2: False
+2026-09-04 11:34:19,184 - _10_evaluation.py - INFO - Evaluation latency: 1.167s
+2026-09-04 11:34:19,460 - _10_evaluation.py - INFO - Evaluation latency: 0.276s
+2026-09-04 11:34:19,460 - _10_evaluation.py - INFO - Test 1: True
+2026-09-04 11:34:19,460 - _10_evaluation.py - INFO - Test 2: False2026-09-04 11:41:14,484 - main.py - INFO - Received question: How many men were left by AM?
+2026-09-04 11:42:30,633 - _10_evaluation.py - INFO - Evaluation latency: 21.298s
+2026-09-04 11:42:30,633 - main.py - INFO - Generation completed. Faithful: True
+2026-09-04 11:44:56,843 - main.py - INFO - Received question: How many women were left by AM?
+2026-09-04 11:45:58,872 - _10_evaluation.py - INFO - Evaluation latency: 15.240s
+2026-09-04 11:45:58,872 - main.py - INFO - Generation completed. Faithful: False
+2026-09-04 11:48:27,043 - main.py - INFO - Received question: I know that in the novel about AM, there was one women and four men. Can you prove it by context?
+2026-09-04 11:50:27,352 - _10_evaluation.py - INFO - Evaluation latency: 18.454s
+2026-09-04 11:50:27,352 - main.py - INFO - Generation completed. Faithful: True
+2026-09-04 11:52:19,022 - main.py - INFO - Received question: How many women were left by AM after apocalypse? Can you prove it by context?
+2026-09-04 11:54:20,756 - _10_evaluation.py - INFO - Evaluation latency: 12.987s
+2026-09-04 11:54:20,756 - main.py - INFO - Generation completed. Faithful: True
+2026-09-04 12:43:53,872 - main.py - INFO - Received question: What was happened with last men?
+2026-09-04 12:45:57,176 - _10_evaluation.py - INFO - Evaluation latency: 27.004s
+2026-09-04 12:45:57,176 - main.py - INFO - Generation completed. Faithful: False
