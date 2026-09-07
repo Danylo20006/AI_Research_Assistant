@@ -7,12 +7,14 @@ from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_ollama import ChatOllama
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 
-
 PDF_PATH = "./data/papers/novel.pdf"
 
 loader = PyMuPDFLoader(PDF_PATH)
 documents = loader.load()
 
+# Recursive character splitting is superior to naive slicing. 
+# It attempts to split by paragraphs (\n\n), then sentences, then words,
+# preserving logical semantic boundaries before relying on hard character limits.
 text_splitter = RecursiveCharacterTextSplitter(
     chunk_size=1000,
     chunk_overlap=200,
@@ -40,19 +42,15 @@ llm = ChatOllama(
     timeout=120,
 )
 
-
 prompt = ChatPromptTemplate.from_messages(
     [
         (
             "system",
             """
             You are an AI assistant.
-            
             Answer the question using only the provided context.
-            
             If the context does not contain enough information to answer the question,
             say "I don't know".
-            
             Do not use external knowledge.
             
             Context:
@@ -63,11 +61,10 @@ prompt = ChatPromptTemplate.from_messages(
     ]
 )
 
-
 def format_docs(docs) -> str:
     return "\n\n".join(doc.page_content for doc in docs)
 
-
+# LCEL (LangChain Expression Language) Pipeline
 rag_chain = (
     {
         "context": retriever | format_docs,
@@ -78,6 +75,9 @@ rag_chain = (
     | StrOutputParser()
 )
 
+# Architectural highlight: Decoupling the generation chain from the retrieval chain.
+# This allows the API layer to intercept the retrieved 'context' and pass it 
+# directly to the evaluator (LLM-as-a-Judge) alongside the generated answer.
 answer_chain = (
     prompt
     | llm

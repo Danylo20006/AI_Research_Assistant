@@ -47,7 +47,8 @@ def generate_response(
 
 def clean_response(response_text: str) -> str:
     """
-    Removes common Markdown formatting from model response
+    Sanitizes the LLM output by removing Markdown code block artifacts.
+    Crucial for preventing JSONDecodeErrors when models wrap responses in formatting tags.
     """
 
     response_text = response_text.strip()
@@ -64,7 +65,11 @@ def clean_response(response_text: str) -> str:
     return response_text.strip()
 
 def extract_metadata(abstract: str) -> PaperMetadata:
-
+    """
+    Extracts structured metadata from text using a self-correcting LLM loop.
+    Implements a retry mechanism that feeds Pydantic/JSON validation errors 
+    back to the model, allowing it to fix its own formatting mistakes.
+    """
     system_prompt = """
     You are a data extractor for scientific papers.
 
@@ -101,7 +106,7 @@ def extract_metadata(abstract: str) -> PaperMetadata:
             return metadata
 
         except json.JSONDecodeError as e:
-
+            # Feedback loop for JSON syntax errors
             user_prompt = f"""
             Your previous response was not valid JSON.
 
@@ -119,6 +124,7 @@ def extract_metadata(abstract: str) -> PaperMetadata:
             - is_technical: boolean"""
 
         except ValidationError as e:
+            # Feedback loop for schema violations (e.g., more than 3 topics)
             user_prompt = f"""
             Your previous response failed Pydantic validation.
 
