@@ -1,0 +1,9 @@
+.venv/
+app.log
+__pycache__/
+data/test_chroma_db/
+
+.git/
+.idea/
+.vscode/
+*.pyc

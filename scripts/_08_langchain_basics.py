@@ -36,7 +36,10 @@ retriever = vectorstore.as_retriever(
 llm = ChatOllama(
     model="qwen3:1.7b",
     temperature=0.0,
+    base_url="http://host.docker.internal:11434",
+    timeout=120,
 )
+
 
 prompt = ChatPromptTemplate.from_messages(
     [

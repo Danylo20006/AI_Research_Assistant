@@ -6,7 +6,7 @@ from app.logger import get_logger
 logger = get_logger(__name__)
 
 client = AsyncOpenAI(
-    base_url="http://localhost:11434/v1",
+    base_url="http://host.docker.internal:11434/v1",
     api_key="ollama",
 )
 

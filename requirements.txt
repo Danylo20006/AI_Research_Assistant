@@ -1,4 +1,16 @@
 openai
-sentence-transformers 
+sentence-transformers
 numpy
 scikit-learn
+fastapi
+uvicorn
+langchain
+pydantic
+chromadb
+langchain_chroma
+langchain_community
+langchain_core
+langchain_huggingface
+langchain_ollama
+langchain_text_splitters
+pymupdf

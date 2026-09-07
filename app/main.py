@@ -24,25 +24,31 @@ class QueryResponse(BaseModel):
 
 @app.post("/ask", response_model=QueryResponse)
 async def generate_response(request: QueryRequest):
-    logger.info("Received question: %s", request.question)
+    logger.info("STEP 1: Received question: %s", request.question)
 
     try:
+        logger.info("STEP 2: Starting retriever")
         docs = await retriever.ainvoke(request.question)
+        logger.info("STEP 3: Retriever completed, docs=%s", len(docs))
 
         context = format_docs(docs)
+        logger.info("STEP 4: Context formatted, length=%s", len(context))
 
+        logger.info("STEP 5: Starting answer generation")
         answer = await answer_chain.ainvoke(
             {
                 "question": request.question,
                 "context": context,
             }
         )
+        logger.info("STEP 6: Answer generated")
 
-        is_faithful =  await evaluate_faithfulness(
+        logger.info("STEP 7: Starting faithfulness evaluation")
+        is_faithful = await evaluate_faithfulness(
             context=context,
             answer=answer,
         )
-        logger.info("Generation completed. Faithful: %s", is_faithful)
+        logger.info("STEP 8: Evaluation completed: %s", is_faithful)
 
         return QueryResponse(
             answer=answer,
@@ -50,8 +56,7 @@ async def generate_response(request: QueryRequest):
         )
 
     except Exception as exc:
-        logger.exception('Error during request processing')
-
+        logger.exception("ERROR in /ask")
         raise HTTPException(
             status_code=500,
             detail=str(exc),
