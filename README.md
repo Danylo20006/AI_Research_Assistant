@@ -91,3 +91,9 @@ curl -X 'POST' \
 }
 
 ```
+
+Swagger UI Example
+
+![Swagger UI 1](images/photo_2026-09-08_11-26-16.jpg)
+
+![Swagger UI 2](images/photo_2026-09-08_11-27-44.jpg)
